@@ -37,12 +37,19 @@ export default function Dashboard() {
     try {
       const res = await fetch("/api/lastestData");
       const data = await res.json();
-      setLastData(data);
+      if (Array.isArray(data)) {
+        setLastData(data);
+      } else {
+        console.error("Expected an array but received:", data);
+        setLastData([]); // กำหนดค่าเป็นอาร์เรย์ว่างหากไม่เป็นอาร์เรย์
+      }
       console.log("Latest Data:", data);
     } catch (error) {
       console.error("Error fetching latest data:", error);
+      setLastData([]); // กำหนดค่าเป็นอาร์เรย์ว่างในกรณีที่เกิดข้อผิดพลาด
     }
   }
+  
 
   async function fetchAllData() {
     try {

@@ -25,10 +25,7 @@ export async function POST(req) {
     client = await dbConnect();
 
     // Insert the RGB control command into the database
-    await client.query(`
-      INSERT INTO "NCN046" ("command", "date")
-      VALUES ($1, NOW())
-    `, ['RGB_ON']);
+    await client.query(`INSERT INTO "NCN046" ("command", "date") VALUES ($1, NOW())`, ['RGB_ON']);
 
     console.log("RGB control command stored in the database");
 
