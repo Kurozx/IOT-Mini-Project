@@ -68,14 +68,28 @@ export default function Dashboard() {
 
   const chartData1 = lastData.length > 0 ? {
     labels: ["LDR", "VR"],
-    datasets: lastData.map((dataPoint, index) => ({
-      label: `Data Point ${index + 1}`,
-      data: [dataPoint.ldr, dataPoint.vr],
-      backgroundColor: [
-        "rgba(75, 192, 192, 0.6)",
-        "rgba(153, 102, 255, 0.6)",
-      ],
-    })),
+    datasets: [
+      {
+        label: "LDR",
+        data: lastData.map((dataPoint) => dataPoint.ldr),
+        backgroundColor: "rgba(255, 159, 64, 0.6)", // สีส้ม
+        borderColor: "rgba(255, 159, 64, 1)", // สีส้มเข้มสำหรับขอบ
+        pointStyle: "circle",
+        pointRadius: 6,
+        pointBackgroundColor: "rgba(255, 159, 64, 0.6)", // สีส้ม
+        pointBorderColor: "rgba(255, 159, 64, 1)", // สีส้มเข้มสำหรับขอบ
+      },
+      {
+        label: "VR",
+        data: lastData.map((dataPoint) => dataPoint.vr),
+        backgroundColor: "rgba(255, 205, 86, 0.6)", // สีเหลือง
+        borderColor: "rgba(255, 205, 86, 1)", // สีเหลืองเข้มสำหรับขอบ
+        pointStyle: "circle",
+        pointRadius: 6,
+        pointBackgroundColor: "rgba(255, 205, 86, 0.6)", // สีเหลือง
+        pointBorderColor: "rgba(255, 205, 86, 1)", // สีเหลืองเข้มสำหรับขอบ
+      },
+    ],
   } : null;
 
   const chartData2 = lastData.length > 0 ? {

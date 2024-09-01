@@ -16,7 +16,7 @@ export async function POST(request) {
     try {
       // Increment the att value directly in the SQL query
       const updateRes = await client.query(
-        'UPDATE "Pp058" SET att = att + 1 WHERE id = $1 RETURNING att',
+        'UPDATE "NCN046" SET att = att + 1 WHERE id = $1 RETURNING att',
         [87] // Update the record with id = 87
       );
   
