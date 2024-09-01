@@ -3,7 +3,6 @@ import "./globals.css";
 import 'bootstrap/dist/css/bootstrap.css';
 import Navbar from "@/components/nav";
 import BootstrapClient from "@/components/bootstrapClient";
-import Footer from "@/components/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 

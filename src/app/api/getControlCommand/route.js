@@ -44,7 +44,7 @@ export async function POST(request) {
 export async function GET() {
   try {
     // ดึงข้อมูลสถานะปัจจุบันจากฐานข้อมูล
-    const res = await client.query('SELECT command FROM "Pp058" WHERE id = $1', [87]);
+    const res = await client.query('SELECT command FROM "NCN046" WHERE id = $1', [87]);
 
     if (res.rowCount === 0) {
       throw new Error('No records found');

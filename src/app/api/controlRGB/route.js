@@ -35,7 +35,7 @@ export async function POST(req) {
     // Fetch the latest command from the database
     const result = await client.query(`
       SELECT "command", "date"
-      FROM "Pp058"
+      FROM "NCN046"
       ORDER BY "date" DESC
       LIMIT 1
     `);
