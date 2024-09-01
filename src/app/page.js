@@ -353,15 +353,6 @@ export default function Dashboard() {
         )}
       </div>
 
-      <div className="text-center">
-        <button
-          className="btn btn-primary"
-          onClick={() => downloadCSV(lastData, "latest_data.csv")}
-        >
-          Download Latest Data as CSV
-        </button>
-      </div>
-
       <h2 className={`${styles.heading} text-center my-4`}>
         Latest Data
       </h2>
