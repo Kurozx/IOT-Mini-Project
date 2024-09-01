@@ -59,7 +59,7 @@ const Navbar = () => {
     <nav className={`navbar navbar-expand-lg ${styles.navbarCustom}`}>
       <div className="container-fluid">
         <Link className="navbar-brand d-flex align-items-center" href="./">
-          <span className={styles.navbarBrandText}>Dashboard</span>
+            <img src="img/logo.png" alt="LOGO" width="100" height="80"></img>
         </Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon" />
