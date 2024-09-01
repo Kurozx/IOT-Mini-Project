@@ -1,4 +1,3 @@
-// src/app/api/receiveData/route.js
 import { Client } from 'pg';
 import fs from 'fs';
 import path from 'path';
@@ -21,7 +20,7 @@ export async function POST(request) {
 
       const res = await client.query(
           'UPDATE "NCN046" SET command = $1 WHERE id = $2 RETURNING *',
-          [command, 87] // ใช้ `1` เป็น ID ของแถวที่ต้องการอัปเดต หากมีหลายแถวให้ปรับเป็น ID ที่ต้องการ
+          [command, 87] // ใช้ ID ของแถวที่ต้องการอัปเดต หากมีหลายแถวให้ปรับเป็น ID ที่ต้องการ
       );
 
       if (res.rowCount === 0) {
@@ -40,10 +39,8 @@ export async function POST(request) {
   }
 }
 
-// ฟังก์ชันจัดการคำขอ GET
 export async function GET() {
   try {
-    // ดึงข้อมูลสถานะปัจจุบันจากฐานข้อมูล
     const res = await client.query('SELECT command FROM "NCN046" WHERE id = $1', [87]);
 
     if (res.rowCount === 0) {
@@ -55,9 +52,15 @@ export async function GET() {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
-    // บันทึกข้อผิดพลาดลงใน log.txt
+    // ตรวจสอบว่ามีการสร้างไฟล์ log.txt อยู่แล้วหรือไม่ ถ้าไม่มีให้สร้างขึ้นมา
     const logPath = path.join(process.cwd(), 'log.txt');
-    fs.appendFileSync(logPath, `${new Date().toISOString()} - ${error.message}\n`);
+    try {
+      fs.appendFileSync(logPath, `${new Date().toISOString()} - ${error.message}\n`);
+    } catch (fsError) {
+      console.error('File write error:', fsError.message);
+    }
+
+    console.error('GET Error:', error.message);
 
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
