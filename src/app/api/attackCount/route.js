@@ -14,11 +14,7 @@ export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const result = await client.query(`
-      SELECT att
-      FROM "NCN046"
-      WHERE id = $1
-    `, [87]);
+    const result = await client.query(`SELECT att FROM "NCN046" WHERE id = $1`, [87]);
 
     if (result.rows.length > 0) {
       return new Response(JSON.stringify({ att: result.rows[0].att }), {

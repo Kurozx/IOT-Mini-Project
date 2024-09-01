@@ -27,9 +27,7 @@ export default async function handler(req, res) {
 
       // Insert the command into the database for the buzzer
       await client.query(`
-        INSERT INTO "NCN046" ("command", "date")
-        VALUES ($1, NOW())
-      `, ['BUZZER_ON']);
+        INSERT INTO "NCN046" ("command", "date") VALUES ($1, NOW())`, ['BUZZER_ON']);
 
       console.log("Buzzer control command stored in the database");
 

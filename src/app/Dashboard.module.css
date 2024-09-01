@@ -1,7 +1,7 @@
 /* Dashboard.module.css */
 .dashboard {
   padding: 20px;
-  background-color: #f1f9f0; /* Light green background */
+  background-color: #e6ecf6e0; /* Light green background */
   min-height: 100vh;
 }
 
@@ -13,8 +13,8 @@
   margin: 0 auto;
   margin-top: 20px;
   padding: 20px;
-  background-color: #d4edda; /* Light green background */
-  border: 2px solid #c3e6cb; /* Slightly darker green border */
+  background-color: #ffffff; /* Light green background */
+  border: 2px solid #000000; /* Slightly darker green border */
   border-radius: 12px;
   width: 50%;
   text-align: center;
@@ -30,7 +30,7 @@
 
 .loadingText {
   margin-top: 10px;
-  color: #6c757d; /* Grey color */
+  color: #000000; /* Grey color */
 }
 
 .heading {
@@ -38,7 +38,7 @@
   margin-top: 10px;
   margin-bottom: 20px;
   text-align: center;
-  color: #004d00; /* Dark green */
+  color: #0011ff; /* Dark green */
 }
 
 .chartRow {

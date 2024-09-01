@@ -52,10 +52,8 @@ export async function POST(request) {
     const distanceParsed = parseFloat(distance);
 
     // Execute SQL query to insert data
-    const res = await client.query(
-      'INSERT INTO "NCN046" (LDR, VR, TEMP, DISTANCE) VALUES ($1, $2, $3, $4) RETURNING *',
-      [ldrParsed, vrParsed, tempParsed, distanceParsed]
-    );
+    const res = await client.query('INSERT INTO "NCN046" (LDR, VR, TEMP, DISTANCE) VALUES ($1, $2, $3, $4) RETURNING *',
+    [ldrParsed, vrParsed, tempParsed, distanceParsed]);
 
     // Return successful response
     return new Response(JSON.stringify(res.rows[0]), {

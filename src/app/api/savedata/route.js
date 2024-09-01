@@ -16,10 +16,8 @@ export async function POST(request) {
     const { ldr, vr, temp, distance } = await request.json();
 
     // Execute SQL query to insert data
-    const res = await client.query(
-      'INSERT INTO "NCN046" (ldr, vr, temp, distance) VALUES ($1, $2, $3, $4) RETURNING *',
-      [ldr, vr, temp, distance]
-    );
+    const res = await client.query('INSERT INTO "NCN046" (ldr, vr, temp, distance) VALUES ($1, $2, $3, $4) RETURNING *',
+    [ldr, vr, temp, distance]);
 
     // Return successful response
     return new Response(JSON.stringify(res.rows[0]), {

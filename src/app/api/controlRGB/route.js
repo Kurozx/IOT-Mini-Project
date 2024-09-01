@@ -33,12 +33,7 @@ export async function POST(req) {
     console.log("RGB control command stored in the database");
 
     // Fetch the latest command from the database
-    const result = await client.query(`
-      SELECT "command", "date"
-      FROM "NCN046"
-      ORDER BY "date" DESC
-      LIMIT 1
-    `);
+    const result = await client.query(`SELECT "command", "date" FROM "NCN046" ORDER BY "date" DESCLIMIT 1`);
 
     // Return the latest data
     return new Response(JSON.stringify({

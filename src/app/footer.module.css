@@ -12,12 +12,12 @@
 }
 
 .nav-link {
-  color: #f8f9fa; /* Light color for links */
+  color: #ffffff; /* Light color for links */
   transition: color 0.3s ease; /* Smooth transition on hover */
 }
 
 .nav-link:hover {
-  color: #ffc107; /* Highlight link color on hover */
+  color: #000000; /* Highlight link color on hover */
 }
 
 .footerText {
