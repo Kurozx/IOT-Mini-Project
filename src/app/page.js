@@ -226,34 +226,6 @@ export default function Dashboard() {
       <ul className="nav nav-tabs" id="chartTabs" role="tablist">
         <li className="nav-item" role="presentation">
           <button
-            className="nav-link active"
-            id="ldr-vr-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#ldr-vr"
-            type="button"
-            role="tab"
-            aria-controls="ldr-vr"
-            aria-selected="true"
-          >
-            LDR and VR
-          </button>
-        </li>
-        <li className="nav-item" role="presentation">
-          <button
-            className="nav-link"
-            id="temp-distance-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#temp-distance"
-            type="button"
-            role="tab"
-            aria-controls="temp-distance"
-            aria-selected="false"
-          >
-            Temperature and Distance
-          </button>
-        </li>
-        <li className="nav-item" role="presentation">
-          <button
             className="nav-link"
             id="trend-ldr-vr-tab"
             data-bs-toggle="tab"
