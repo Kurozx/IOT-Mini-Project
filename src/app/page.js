@@ -307,43 +307,6 @@ export default function Dashboard() {
           )}
         </div>
       </div>
-      <h2 className={`${styles.heading} text-center my-4`}>
-        Latest Data
-      </h2>
-      <div className="table-responsive">
-        <table
-          className={`table table-striped table-bordered ${styles.table}`}
-        >
-          <thead className="thead-dark">
-            <tr>
-              <th>ID</th>
-              <th>LDR</th>
-              <th>VR</th>
-              <th>Temperature</th>
-              <th>Distance</th>
-              <th>Create At</th>
-            </tr>
-          </thead>
-          <tbody>
-            {lastData.map((ldata) => (
-              <tr key={ldata.id}>
-                <td>{ldata.id}</td>
-                <td>{ldata.ldr}</td>
-                <td>{ldata.vr}</td>
-                <td>{ldata.temp}</td>
-                <td>{ldata.distance}</td>
-                <td>
-                  {new Date(ldata.date).toLocaleString("th-TH", {
-                    timeZone: "Asia/Bangkok",
-                    dateStyle: "short",
-                    timeStyle: "short",
-                  })}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
     </div>
   );
 }
