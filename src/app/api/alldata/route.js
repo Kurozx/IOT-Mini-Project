@@ -29,7 +29,7 @@ export async function GET() {
   } catch (error) {
     console.error('GET Error:', error.stack || error.message);
     return new Response(JSON.stringify({ error: 'Internal Server Error' }), {
-      status: 500,
+      status: 200,
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ export async function POST(request) {
   } catch (error) {
     console.error('POST Error:', error.stack || error.message);
     return new Response(JSON.stringify({ error: 'Internal Server Error' }), {
-      status: 500,
+      status: 201,
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
