@@ -32,7 +32,6 @@ export default function Dashboard() {
   const [lastData, setLastData] = useState([]);
   const [allData, setAllData] = useState([]);
   const [attackCount, setAttackCount] = useState(null);
-  const [command, setCommand] = useState("");
 
   async function fetchLastData() {
     try {
@@ -50,6 +49,7 @@ export default function Dashboard() {
       setLastData([]); // กำหนดค่าเป็นอาร์เรย์ว่างในกรณีที่เกิดข้อผิดพลาด
     }
   }
+
 
   async function fetchAllData() {
     try {
@@ -70,28 +70,6 @@ export default function Dashboard() {
       console.log("Attack Count:", data.att);
     } catch (error) {
       console.error("Error fetching attack count:", error);
-    }
-  }
-
-  async function handleSubmit(event) {
-    event.preventDefault();
-    try {
-      const res = await fetch("/api/control", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ command }),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        alert("Command sent successfully");
-      } else {
-        alert(`Failed to send command: ${data.error}`);
-      }
-    } catch (error) {
-      console.error("Error sending command:", error);
-      alert("Error sending command");
     }
   }
 
@@ -210,7 +188,6 @@ export default function Dashboard() {
       },
     },
   };
-
   useEffect(() => {
     fetchLastData();
     fetchAllData();
@@ -267,7 +244,6 @@ export default function Dashboard() {
           role="tabpanel"
           aria-labelledby="ldr-vr-tab"
         >
-          {/* Placeholder for LDR and VR chart */}
         </div>
         <div
           className="tab-pane fade"
@@ -314,30 +290,6 @@ export default function Dashboard() {
             <p>No data available for the Temperature and Distance line chart</p>
           )}
         </div>
-      </div>
-
-      {/* NeoPixel Control Form */}
-      <div className="container my-4">
-        <h2>NeoPixel Control</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="command" className="form-label">
-              Command
-            </label>
-            <select
-              id="command"
-              className="form-select"
-              value={command}
-              onChange={(e) => setCommand(e.target.value)}
-            >
-              <option value="RGB_ON">RGB_ON</option>
-              <option value="OFF">OFF</option>
-            </select>
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Send Command
-          </button>
-        </form>
       </div>
     </div>
   );
