@@ -72,6 +72,22 @@ export default function Dashboard() {
       console.error("Error fetching attack count:", error);
     }
   }
+  async function sendNeoPixelCommand(index, color) {
+    try {
+      const res = await fetch("/api/neopixel", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ index, color }),
+      });
+      const data = await res.json();
+      console.log("NeoPixel command response:", data);
+    } catch (error) {
+      console.error("Error sending NeoPixel command:", error);
+    }
+  }
+  
 
   const chartData1 = lastData.length > 0 ? {
     labels: ["LDR", "VR"],
@@ -188,22 +204,6 @@ export default function Dashboard() {
       },
     },
   };
-
-  function downloadCSV(data, filename) {
-    const csvData = data.map((row) =>
-      Object.values(row).join(",")
-    );
-    const csvContent =
-      "data:text/csv;charset=utf-8," + csvData.join("\n");
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", filename);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }
-
   useEffect(() => {
     fetchLastData();
     fetchAllData();
@@ -223,6 +223,31 @@ export default function Dashboard() {
       <h1 className={`${styles.heading} text-center my-4`}>
         Dashboard
       </h1>
+  
+      {/* NeoPixel Control */}
+      <div className={`${styles.neoPixelControl} mb-4`}>
+        <h2>Control NeoPixel</h2>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            const index = e.target.elements.index.value;
+            const color = e.target.elements.color.value;
+            sendNeoPixelCommand(index, color);
+          }}
+        >
+          <div className="mb-3">
+            <label htmlFor="index" className="form-label">NeoPixel Index</label>
+            <input type="number" id="index" name="index" className="form-control" min="0" required />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="color" className="form-label">Color (Hex Code)</label>
+            <input type="text" id="color" name="color" className="form-control" placeholder="#RRGGBB" required />
+          </div>
+          <button type="submit" className="btn btn-primary">Send Command</button>
+        </form>
+      </div>
+  
+      {/* Existing Tabs and Charts */}
       <ul className="nav nav-tabs" id="chartTabs" role="tablist">
         <li className="nav-item" role="presentation">
           <button
@@ -308,5 +333,5 @@ export default function Dashboard() {
         </div>
       </div>
     </div>
-  );
+  );  
 }
