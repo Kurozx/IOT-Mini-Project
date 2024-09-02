@@ -12,7 +12,6 @@ client.connect();
 
 export const dynamic = 'force-dynamic';
 
-
 // src/app/api/route.js
 // -------------------------------------------------------------------------------------
 export async function GET() {
@@ -29,7 +28,7 @@ export async function GET() {
   } catch (error) {
     console.error('GET Error:', error.stack || error.message);
     return new Response(JSON.stringify({ error: 'Internal Server Error' }), {
-      status: 200,
+      status: 500, // เปลี่ยนจาก 200 เป็น 500
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
@@ -40,16 +39,20 @@ export async function GET() {
 
 export async function POST(request) {
   try {
-    // const body = await request.json();
-    // console.log(body);
     // Parse JSON from the request
     const { ldr, vr, temp, distance } = await request.json();
+
+    // Log the parsed values
+    console.log('Received:', { ldr, vr, temp, distance });
     
     // Ensure data types are correct
     const ldrParsed = parseInt(ldr, 10);
     const vrParsed = parseInt(vr, 10);
     const tempParsed = parseFloat(temp);
     const distanceParsed = parseFloat(distance);
+
+    // Log the parsed values before inserting
+    console.log('Parsed Values:', { ldrParsed, vrParsed, tempParsed, distanceParsed });
 
     // Execute SQL query to insert data
     const res = await client.query(
@@ -68,7 +71,7 @@ export async function POST(request) {
   } catch (error) {
     console.error('POST Error:', error.stack || error.message);
     return new Response(JSON.stringify({ error: 'Internal Server Error' }), {
-      status: 201,
+      status: 500, // เปลี่ยนจาก 201 เป็น 500
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
