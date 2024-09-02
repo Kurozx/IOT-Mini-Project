@@ -260,14 +260,6 @@ export default function Dashboard() {
           role="tabpanel"
           aria-labelledby="ldr-vr-tab"
         >
-          {lastData.length > 0 && chartData1 ? (
-            <div className={styles.chartContainer}>
-              <h2>LDR and VR</h2>
-              <Bar data={chartData1} options={chartOptions} />
-            </div>
-          ) : (
-            <p>No data available for LDR and VR chart</p>
-          )}
         </div>
         <div
           className="tab-pane fade"
