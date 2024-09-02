@@ -15,7 +15,7 @@ export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const result = await client.query(`SELECT * FROM "NCN046"ORDER BY "date" DESCLIMIT 1`);
+    const result = await client.query(`SELECT * FROM "NCN046" ORDER BY "date" DESCLIMIT 1`);
     return new Response(JSON.stringify(result.rows), {
       status: 200,
       headers: {
