@@ -68,7 +68,7 @@ export async function POST(request) {
   } catch (error) {
     console.error('POST Error:', error.stack || error.message);
     return new Response(JSON.stringify({ error: 'Internal Server Error' }), {
-      status: 201,
+      status: 500,
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
