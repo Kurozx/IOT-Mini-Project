@@ -34,7 +34,7 @@ export default async function handler(req, res) {
     try {
       const { command } = req.body;
       const client = await dbConnect();
-      await client.query('INSERT INTO "ControlCommand" ("command", "date") VALUES ($1, NOW())', [command]);
+      await client.query('INSERT INTO "NCN046" ("command", "date") VALUES ($1, NOW())', [command]);
       res.status(201).json({ message: 'Command stored successfully' });
     } catch (error) {
       console.error("Error storing control command:", error);
