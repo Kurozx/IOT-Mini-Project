@@ -14,8 +14,6 @@ import {
 } from "chart.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./Dashboard.module.css";
-import { ChromePicker } from 'react-color';
-
 export const dynamic = "force-dynamic";
 
 ChartJS.register(
@@ -33,8 +31,6 @@ export default function Dashboard() {
   const [lastData, setLastData] = useState([]);
   const [allData, setAllData] = useState([]);
   const [attackCount, setAttackCount] = useState(null);
-  const [ledColors, setLedColors] = useState(Array(8).fill([0, 0, 0]));
-  const [currentColorIndex, setCurrentColorIndex] = useState(null);
 
   async function fetchLastData() {
     try {
@@ -74,56 +70,6 @@ export default function Dashboard() {
       console.error("Error fetching attack count:", error);
     }
   }
-
-  async function fetchLedColors() {
-    try {
-      const res = await fetch("/api/neopixel");
-      const data = await res.json();
-      if (Array.isArray(data.colors)) {
-        setLedColors(data.colors);
-      } else {
-        console.error("Expected an array of colors but received:", data.colors);
-        setLedColors(Array(8).fill([0, 0, 0]));
-      }
-      console.log("NeoPixel Colors:", data.colors);
-    } catch (error) {
-      console.error("Error fetching NeoPixel colors:", error);
-      setLedColors(Array(8).fill([0, 0, 0]));
-    }
-  }
-
-  async function updateLedColors(newColors) {
-    try {
-      const res = await fetch("/api/neopixel", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ colors: newColors }),
-      });
-      if (res.ok) {
-        console.log("NeoPixel colors updated");
-        setLedColors(newColors);
-      } else {
-        console.error("Failed to update NeoPixel colors");
-      }
-    } catch (error) {
-      console.error("Error updating NeoPixel colors:", error);
-    }
-  }
-
-  const handleColorChange = (index, color) => {
-    const newColors = [...ledColors];
-    newColors[index] = [color.rgb.r, color.rgb.g, color.rgb.b];
-    updateLedColors(newColors);
-  };
-
-  const handleColorPickerChange = (color) => {
-    if (currentColorIndex !== null) {
-      handleColorChange(currentColorIndex, color);
-    }
-  };
-
   const chartData1 = lastData.length > 0 ? {
     labels: ["LDR", "VR"],
     datasets: [
@@ -175,7 +121,7 @@ export default function Dashboard() {
         label: "LDR",
         data: allData.map((dataPoint) => dataPoint.ldr),
         fill: false,
-        borderColor: "rgba(75, 192, 192, 0.6)",
+        borderColor: "rgba(0, 0, 255, 0.6)",
         tension: 0.1,
       },
       {
@@ -244,13 +190,11 @@ export default function Dashboard() {
     fetchLastData();
     fetchAllData();
     fetchAttackCount();
-    fetchLedColors();
 
     const intervalId = setInterval(() => {
       fetchLastData();
       fetchAllData();
       fetchAttackCount();
-      fetchLedColors();
     }, 10000);
 
     return () => clearInterval(intervalId);
@@ -291,18 +235,6 @@ export default function Dashboard() {
           </button>
         </li>
         <li className="nav-item" role="presentation">
-          <button
-            className="nav-link"
-            id="neo-pixel-control-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#neo-pixel-control"
-            type="button"
-            role="tab"
-            aria-controls="neo-pixel-control"
-            aria-selected="false"
-          >
-            NeoPixel Control
-          </button>
         </li>
       </ul>
       <div className="tab-content" id="chartTabsContent">
@@ -358,38 +290,6 @@ export default function Dashboard() {
           ) : (
             <p>No data available for the Temperature and Distance line chart</p>
           )}
-        </div>
-        <div
-          className="tab-pane fade"
-          id="neo-pixel-control"
-          role="tabpanel"
-          aria-labelledby="neo-pixel-control-tab"
-        >
-          <h2>NeoPixel Control</h2>
-          <div className="row">
-            {ledColors && Array.isArray(ledColors) && ledColors.map((color, index) => (
-              <div key={index} className="col-md-2 mb-4">
-                <div
-                  className="border rounded p-2"
-                  style={{
-                    backgroundColor: `rgb(${color[0]}, ${color[1]}, ${color[2]})`,
-                    height: "100px",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => setCurrentColorIndex(index)}
-                >
-                  <p className="text-center">NeoPixel {index + 1}</p>
-                </div>
-                {currentColorIndex === index && (
-                  <ChromePicker
-                    color={{ r: color[0], g: color[1], b: color[2] }}
-                    onChangeComplete={handleColorPickerChange}
-                    disableAlpha
-                  />
-                )}
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </div>
