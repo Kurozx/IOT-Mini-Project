@@ -7,7 +7,7 @@ const client = new Client({
   connectionString: process.env.DATABASE_URL,
 });
 
-// Connect to the database once
+// เชื่อมต่อฐานข้อมูลเพียงครั้งเดียว
 client.connect();
 
 export const dynamic = 'force-dynamic';
@@ -36,8 +36,6 @@ export async function GET() {
         'Content-Type': 'application/json',
       },
     });
-  } finally {
-    await client.end(); // ปิดการเชื่อมต่อฐานข้อมูลหลังการทำงานเสร็จสิ้น
   }
 }
 
@@ -86,7 +84,5 @@ export async function POST(request) {
         'Content-Type': 'application/json',
       },
     });
-  } finally {
-    await client.end(); // ปิดการเชื่อมต่อฐานข้อมูลหลังการทำงานเสร็จสิ้น
   }
 }
