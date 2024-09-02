@@ -15,7 +15,7 @@ client.connect();
 export async function POST(request) {
     try {
       // Increment the att value directly in the SQL query
-      const updateRes = await client.query('UPDATE "NCN046" SET att = att + 1 WHERE id = $1 RETURNING att',[87]);
+      const updateRes = await client.query('UPDATE "NCN046" SET att = att + 1 WHERE id = $1 RETURNING att',[1]);
   
       if (updateRes.rowCount === 0) {
         throw new Error('No rows updated');
