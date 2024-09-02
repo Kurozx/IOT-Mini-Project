@@ -76,9 +76,6 @@ const Navbar = () => {
             <button type="button" className={`btn ${styles.btnCustom} me-2`} onClick={() => updateLEDStatus('RGB_ON', setLEDStatus)}>RGB</button>
             <button type="button" className={`btn ${styles.btnCustom} me-2`} onClick={() => updateLEDStatus('BUZZER_ON', setLEDStatus)}>Buzzer</button>
             <button type="button" className={`btn ${styles.btnDanger}`} onClick={() => updateLEDStatus('OFF', setLEDStatus)}>Off</button>
-            <span className={`ms-3 ${ledStatus ? styles.statusOn : styles.statusOff}`}>
-              {ledStatus ? 'LED is ON' : 'LED is OFF'}
-            </span>
           </form>
         </div>
       </div>
