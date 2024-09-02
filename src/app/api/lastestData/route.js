@@ -27,7 +27,7 @@ export async function GET() {
   } catch (error) {
 
     return new Response(JSON.stringify({ error: "Internal Server Error" }), {
-      status: 400,
+      status: 200,
       headers: { 'Access-Control-Allow-Origin': '*', "Content-Type": "application/json" },
     });
   }
