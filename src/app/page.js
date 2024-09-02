@@ -44,12 +44,12 @@ export default function Dashboard() {
         setLastData(data);
       } else {
         console.error("Expected an array but received:", data);
-        setLastData([]); // กำหนดค่าเป็นอาร์เรย์ว่างหากไม่เป็นอาร์เรย์
+        setLastData([]);
       }
       console.log("Latest Data:", data);
     } catch (error) {
       console.error("Error fetching latest data:", error);
-      setLastData([]); // กำหนดค่าเป็นอาร์เรย์ว่างในกรณีที่เกิดข้อผิดพลาด
+      setLastData([]);
     }
   }
 
@@ -79,10 +79,16 @@ export default function Dashboard() {
     try {
       const res = await fetch("/api/neopixel");
       const data = await res.json();
-      setLedColors(data.colors);
+      if (Array.isArray(data.colors)) {
+        setLedColors(data.colors);
+      } else {
+        console.error("Expected an array of colors but received:", data.colors);
+        setLedColors(Array(8).fill([0, 0, 0]));
+      }
       console.log("NeoPixel Colors:", data.colors);
     } catch (error) {
       console.error("Error fetching NeoPixel colors:", error);
+      setLedColors(Array(8).fill([0, 0, 0]));
     }
   }
 
@@ -108,13 +114,13 @@ export default function Dashboard() {
 
   const handleColorChange = (index, color) => {
     const newColors = [...ledColors];
-    newColors[index] = color;
+    newColors[index] = [color.rgb.r, color.rgb.g, color.rgb.b];
     updateLedColors(newColors);
   };
 
   const handleColorPickerChange = (color) => {
     if (currentColorIndex !== null) {
-      handleColorChange(currentColorIndex, [color.rgb.r, color.rgb.g, color.rgb.b]);
+      handleColorChange(currentColorIndex, color);
     }
   };
 
@@ -306,6 +312,7 @@ export default function Dashboard() {
           role="tabpanel"
           aria-labelledby="ldr-vr-tab"
         >
+          {/* Content for LDR and VR Trends */}
         </div>
         <div
           className="tab-pane fade"
@@ -360,7 +367,7 @@ export default function Dashboard() {
         >
           <h2>NeoPixel Control</h2>
           <div className="row">
-            {ledColors.map((color, index) => (
+            {ledColors && Array.isArray(ledColors) && ledColors.map((color, index) => (
               <div key={index} className="col-md-2 mb-4">
                 <div
                   className="border rounded p-2"
